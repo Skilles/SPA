@@ -1,0 +1,13 @@
+{
+	"recommendations": [
+		"SonarSource.sonarlint-vscode",
+        "waderyan.nodejs-extension-pack",
+        "esbenp.prettier-vscode",
+        "christian-kohler.npm-intellisense",
+        "leizongmin.node-module-intellisense",
+        "mongodb.mongodb-vscode",
+        "kamikillerto.vscode-colorize",
+        "GitHub.vscode-pull-request-github",
+        "mgmcdermott.vscode-language-babel"
+	]
+}
