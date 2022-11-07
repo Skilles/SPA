@@ -18,6 +18,7 @@ function RecipeBox({ name, description, time, image, calories, servings, id }) {
       <h3>{name}</h3>
       <p>{description}</p>
       <RecipeBadge value={time} />
+      <RecipeBadge value={calories} />
       <Link to={`/recipe/${id}`}>
         <button type="button">
           <h4>LEARN MORE</h4>

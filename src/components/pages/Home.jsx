@@ -13,8 +13,8 @@ function Home() {
   const [recipesLoaded, setRecipesLoaded] = useState(false);
 
   useEffect(() => {
-    RecipeApi.getRecipes().then((recipes) => {
-      setRecipes(recipes);
+    RecipeApi.getMockData().then((rcps) => {
+      setRecipes(rcps);
       setRecipesLoaded(true);
     });
   });

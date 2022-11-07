@@ -217,6 +217,22 @@ class RecipeApi {
     });
     return res.json();
   }
+
+  static async getMockData() {
+    return [
+      {
+        name: 'Meatballs',
+        description: 'Delicious meatballs',
+        ingredients: [],
+        instructions: [],
+        image: '/public/meatballs.png',
+        time: 30,
+        calories: 500,
+        servings: 4,
+        id: 0,
+      },
+    ];
+  }
 }
 
 export { RecipeApi, UserApi, User, Recipe };
