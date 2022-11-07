@@ -6,29 +6,11 @@
             "type": "chrome",
             "request": "launch",
             "url": "http://localhost:3000",         //Change to the create-react-app default 3000
-            "webRoot": "${workspaceRoot}/client/src",
+            "webRoot": "${workspaceRoot}/src",
             "preLaunchTask": "Start Client" ,
             "sourceMapPathOverrides": {
-                "webpack:///client/src/*": "${webRoot}/*"
+                "webpack:///src/*": "${webRoot}/*"
             }
-        },
-        {
-            "name": "Server",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "nodemon",
-            "program": "${workspaceRoot}/server/src/server.js",
-            "console": "integratedTerminal",
-            "runtimeArgs": [
-                "-r",
-                "${workspaceRoot}/server/node_modules/dotenv/config.js",
-            ]
-        }
-    ],
-    "compounds": [
-        {
-            "name": "Server/Client",
-            "configurations": ["Server", "Client"]
         }
     ]
 }

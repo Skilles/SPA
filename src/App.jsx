@@ -1,25 +1,25 @@
 import React from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 import './App.css';
 import Menubar from './components/Menubar';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
-import ProductDetail from './components/pages/ProductDetail';
+import RecipeDetail from './components/pages/RecipeDetail';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Menubar />
       <div className="content">
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
 
-          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/recipe/:id" element={<RecipeDetail />} />
         </Routes>
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

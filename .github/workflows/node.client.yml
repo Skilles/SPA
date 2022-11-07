@@ -7,9 +7,9 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - client/src/**
-      - client/package.json
-      - client/package-lock.json
+      - src/**
+      - package.json
+      - package-lock.json
       - .github/workflows/**
   pull_request:
     branches: [ "main" ]
@@ -18,9 +18,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: client
 
     strategy:
       matrix:
@@ -33,6 +30,5 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          cache-dependency-path: client/package-lock.json
+          cache-dependency-path: package-lock.json
       - run: npm ci
-      - run: npm test

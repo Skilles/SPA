@@ -3,18 +3,14 @@ import { NavLink } from 'react-router-dom';
 
 function UserGreeting() {
   const name = 'John';
-  return (
-    <p>{name}</p>
-  );
+  return <p>{name}</p>;
 }
 
 function AuthSection() {
   const isAuthed = false;
 
   if (isAuthed) {
-    return (
-      <UserGreeting />
-    );
+    return <UserGreeting />;
   }
   return (
     <>
@@ -28,8 +24,12 @@ function Menubar() {
   return (
     <div className="menubar">
       <span className="menubar-left">
-        <NavLink to="/" href="/">Home</NavLink>
-        <NavLink to="/about" href="/about">About</NavLink>
+        <NavLink to="/" href="/">
+          Home
+        </NavLink>
+        <NavLink to="/about" href="/about">
+          About
+        </NavLink>
       </span>
       <span className="menubar-right">
         <AuthSection />

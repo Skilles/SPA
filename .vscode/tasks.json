@@ -12,7 +12,7 @@
                 "isDefault": true
             },
             "options": {
-                "cwd": "${workspaceFolder}/client"
+                "cwd": "${workspaceFolder}"
             },
             "isBackground": true,                       //This prevents the launch.json to wait for the completion of the task
             "problemMatcher": {

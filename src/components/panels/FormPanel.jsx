@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 import OverlayPanel from './OverlayPanel';
 
-function FormPanel({
-  title, fields, submitText, onSubmit,
-}) {
+function FormPanel({ title, fields, submitText, onSubmit }) {
   return (
     <OverlayPanel>
       <div className="form-panel">
@@ -31,13 +29,15 @@ function FormPanel({
 
 FormPanel.propTypes = {
   title: PropTypes.string.isRequired,
-  fields: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-  })).isRequired,
+  fields: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+      onChange: PropTypes.func.isRequired,
+    }),
+  ).isRequired,
   submitText: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
