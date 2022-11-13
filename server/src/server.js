@@ -8,7 +8,7 @@ import connect from './mongo.js';
 let config = dotenv.config();
 
 if (config.error) {
-  throw error;
+  throw config.error;
 } else {
   config = config.parsed;
 }
