@@ -1,29 +1,33 @@
 import React from 'react';
 
-import FormPanel from './FormPanel';
+import AuthForm from './AuthForm';
+import { handleSignin } from '../../../auth/AuthHandler';
 
-function SigninPanel() {
+function Signin() {
+
   return (
-    <FormPanel
+    <AuthForm
       title="Login"
       fields={[
         {
           name: 'email',
           label: 'Email address',
           type: 'email',
+          placeholder: 'Enter email',
           required: true,
         },
         {
           name: 'password',
           label: 'Password',
           type: 'password',
+          placeholder: 'Enter password',
           required: true,
         },
       ]}
       submitText="Log In"
-      onSubmit={() => {}}
+      onSubmit={handleSignin}
     />
   );
 }
 
-export default SigninPanel;
+export default Signin;

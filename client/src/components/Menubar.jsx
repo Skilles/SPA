@@ -1,38 +1,22 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-function UserGreeting() {
-  const name = 'John';
-  return (
-    <p>{name}</p>
-  );
-}
+import AuthBar from './AuthBar';
 
-function AuthSection() {
-  const isAuthed = false;
-
-  if (isAuthed) {
-    return (
-      <UserGreeting />
-    );
-  }
-  return (
-    <>
-      <button type="button">Signup</button>
-      <button type="button">Login</button>
-    </>
-  );
-}
 
 function Menubar() {
   return (
     <div className="menubar">
       <span className="menubar-left">
-        <NavLink to="/" href="/">Home</NavLink>
-        <NavLink to="/about" href="/about">About</NavLink>
+        <NavLink to="/" href="/" end>
+        <button type="button">Home</button>
+        </NavLink>
+        <NavLink to="/about" href="/about">
+        <button type="button">About</button>
+        </NavLink>
       </span>
       <span className="menubar-right">
-        <AuthSection />
+        <AuthBar />
       </span>
     </div>
   );

@@ -1,11 +1,8 @@
 import React from 'react';
 
-import Header from '../Header';
-
 function About() {
   return (
     <>
-      <Header title="About Us" image="/public/about-header.png" />
       <div className="grey-border about-panel">
         <div className="about-element">
           <h2>Who</h2>
