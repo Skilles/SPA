@@ -1,77 +1,68 @@
-import { Router } from "express";
-// This will help us connect to the database
-import { getDb } from "../db/conn.js";
-// This help convert the id from string to ObjectId for the _id.
-import { ObjectId } from "mongodb";
- 
-// authRoutes is an instance of the express router.
-// We use it to define our routes.
-// The router will be added as a middleware and will take control of requests starting with path /user.
-const authRoutes = Router();
- 
+import { response, Router } from 'express';
+
+import User from '../models/user.js';
+
+const userRoutes = Router();
+
 // This section will help you get a list of all the users.
-authRoutes.route("/api/users").get(function (req, res) {
- let db_connect = getDb("users");
- db_connect
-   .collection("users")
-   .find({})
-   .toArray(function (err, result) {
-     if (err) throw err;
-     res.json(result);
-   });
+userRoutes.route('/api/users').get((req, res) => {
+  User.find({}, (err, users) => {
+    if (err) res.status(400).json({ success: false, error: err.message });
+    else res.json({ success: true, users });
+  });
 });
- 
+
 // This section will help you get a single user by id
-authRoutes.route("/api/user/:id").get(function (req, res) {
- let db_connect = getDb("users");
- let myquery = { _id: ObjectId(req.params.id) };
- db_connect
-   .collection("users")
-   .findOne(myquery, function (err, result) {
-     if (err) throw err;
-     res.json(result);
-   });
+userRoutes.route('/api/user/:id').get((req, res) => {
+  User.findById(req.params.id, (err, user) => {
+    if (err) res.status(400).json({ success: false, error: err.message });
+    else res.json({ success: true, user });
+  });
 });
- 
+
 // This section will help you create a new user.
-authRoutes.route("/api/user/add").post(function (req, response) {
- let db_connect = getDb("users");
- let myobj = {
-   name: req.body.name
- };
- db_connect.collection("users").insertOne(myobj, function (err, res) {
-   if (err) throw err;
-   response.json(res);
- });
+userRoutes.route('/api/user').post((req, res) => {
+  User.create(req.body, (err, user) => {
+    if (err) {
+      if (err.code === 11000) {
+        res.json({ success: false, error: 'User already exists' });
+      } else {
+        res.status(400).json({ success: false, error: err.message });
+      }
+    }
+    else res.json({ success: true, user });
+  });
 });
- 
+
 // This section will help you update a user by id.
-authRoutes.route("/api/user/:id").post(function (req, response) {
- let db_connect = getDb("users");
- let myquery = { _id: ObjectId(req.params.id) };
- let newvalues = {
-   $set: {
-     name: req.body.name
-   },
- };
- db_connect
-   .collection("users")
-   .updateOne(myquery, newvalues, function (err, res) {
-     if (err) throw err;
-     console.log("1 document updated");
-     response.json(res);
-   });
+userRoutes.route('/api/user/:id').post((req, res) => {
+  User.findByIdAndUpdate(req.params.id, req.body, (err, user) => {
+    if (err) res.status(400).json({ success: false, error: err.message });
+    else res.json({ success: true, user });
+  });
 });
- 
+
 // This section will help you delete a user
-authRoutes.route("/api/user/:id").delete((req, response) => {
- let db_connect = getDb("users");
- let myquery = { _id: ObjectId(req.params.id) };
- db_connect.collection("users").deleteOne(myquery, function (err, obj) {
-   if (err) throw err;
-   console.log("1 document deleted");
-   response.json(obj);
- });
+userRoutes.route('/api/user/:id').delete((req, response) => {
+  User.findByIdAndDelete(req.params.id, (err, user) => {
+    if (err) response.status(400).json({ success: false, error: err.message });
+    else response.json({ success: true });
+  });
 });
- 
-export default authRoutes;
+
+userRoutes.route('/api/users/verify').post((req, res) => {
+  User.findOne({ email: req.body.email }, (err,  user) => {
+    if (err) response.status(400).json({ success: false, error: err.message.message });
+    else if (user) {
+      if (user.password === req.body.password) {
+        res.json({ success: true, user });
+      } else {
+        res.json({ success: false, error: 'Incorrect password' });
+      }
+    } else {
+      res.json({ success: false, error: 'Incorrect email' });
+    }
+  })
+});
+
+export default userRoutes;

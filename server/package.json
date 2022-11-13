@@ -5,16 +5,17 @@
   "type": "module",
   "scripts": {
     "start": "echo \"Starting Server...\" && node src/server.js",
-    "dev": "nodemon -r dotenv/config src/server.js dotenv_config_path./src/config.env",
+    "dev": "nodemon src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongodb": "^4.11.0"
+    "mongodb": "^4.11.0",
+    "mongoose": "^6.7.2",
+    "nodemon": "^2.0.20"
   }
 }

@@ -1,24 +1,29 @@
-import express, { json } from "express";
-import cors from "cors";
+import * as dotenv from 'dotenv';
+import express, { json } from 'express';
 
-import productRoutes from "./routes/product.js";
-import authRoutes from "./routes/auth.js";
-import { connectToServer } from "./db/conn.js";
+import recipeRoutes from './routes/recipe.js';
+import authRoutes from './routes/auth.js';
+import connect from './mongo.js';
 
+let config = dotenv.config();
+
+if (config.error) {
+  throw error;
+} else {
+  config = config.parsed;
+}
 
 const app = express();
 
-app.use(cors());
 app.use(json());
-app.use(productRoutes);
+app.use(recipeRoutes);
 app.use(authRoutes);
 
-// get driver connection
 app.listen(5000, () => {
   // perform a database connection when server starts
-  connectToServer(function (err) {
+  connect(config.ATLAS_URI, (err) => {
     if (err) console.error(err);
- 
+  }).then(() => {
+    console.log('Server started on port 5000');
   });
-  console.log(`Server is running on port: 5000`);
 });

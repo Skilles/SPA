@@ -19,10 +19,6 @@
             "runtimeExecutable": "nodemon",
             "program": "${workspaceRoot}/server/src/server.js",
             "console": "integratedTerminal",
-            "runtimeArgs": [
-                "-r",
-                "${workspaceRoot}/server/node_modules/dotenv/config.js",
-            ]
         }
     ],
     "compounds": [
