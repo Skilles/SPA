@@ -6,18 +6,24 @@ import { useNavigate } from 'react-router-dom';
 
 function AuthForm({ title, fields, submitText, onSubmit }) {
 
-  const { setAuthenticated, setUser } = useAuthContext();
+  const { authenticated, setAuthenticated, setUser } = useAuthContext();
   const [error, setError] = useState({});
 
   const navigate = useNavigate();
 
+  if (authenticated) {
+    navigate('/', { replace: true });
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await onSubmit(new FormData(e.target), setAuthenticated, setUser);
+      const user = await onSubmit(new FormData(e.target));
+      setAuthenticated(true);
+      setUser(user);
+      sessionStorage.setItem('currentUser', JSON.stringify(user));
       navigate('/', { replace: true });
     } catch (err) {
-      // Show error message under field
       setError(err);
     }
   }
