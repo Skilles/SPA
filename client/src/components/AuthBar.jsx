@@ -8,7 +8,7 @@ function AuthBar() {
 
     const [showLogout, setShowLogout] = useState(false);
 
-    function handleLogout() {
+    const handleLogout = () => {
         setAuthenticated(false);
         sessionStorage.removeItem('currentUser');
     }

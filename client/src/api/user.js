@@ -16,6 +16,20 @@ class User {
     json.id = () => json._id;
     return Object.assign(new User(), json);
   }
+
+  validate() {
+    const errors = [];
+    if (!this.name) {
+      errors.push("Name is required");
+    }
+    if (!this.email) {
+      errors.push("Email is required");
+    }
+    if (!this.password) {
+      errors.push("Password is required");
+    }
+    return errors;
+  }
 }
 
 class UserApi {
