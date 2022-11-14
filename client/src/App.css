@@ -78,7 +78,6 @@
 .recipes-container {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   width: 80%;
   margin: auto;
 }
@@ -86,6 +85,7 @@
 .recipe-box {
   min-height: 225px;
   width: 26%;
+  margin: 20px;
   transition: 0.5s;
 }
 
@@ -95,6 +95,7 @@
 
 .recipe-box svg {
   transform: translateY(35%);
+  fill: grey;
 }
 
 .recipe-image {
