@@ -1,3 +1,5 @@
+/* Header */
+
 .header {
   position: relative;
   text-align: center;
@@ -26,6 +28,8 @@
   border-radius: 5px;
   filter: brightness(60%);
 }
+
+/* Menubar */
 
 .menubar {
   background-color: grey;
@@ -69,13 +73,7 @@
   margin-right: 20px;
 }
 
-.grey-border {
-  border: 2px solid grey;
-  border-radius: 5px;
-  margin: 20px auto;
-  padding: 20px;
-  max-width: 50vw;
-}
+/* Recipes (Home) */
 
 .recipes-container {
   display: flex;
@@ -88,8 +86,107 @@
 .recipe-box {
   min-height: 225px;
   width: 26%;
+  transition: 0.5s;
+}
+
+.recipe-box:hover {
+  transform: scale(1.05);
 }
 
 .recipe-box svg {
   transform: translateY(35%);
+}
+
+.recipe-image {
+  position: relative;
+  margin: auto;
+}
+
+.recipe-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+
+.recipe-image-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: rgba(0, 0, 0, 0.65);
+  border-radius: 3px;
+}
+
+.recipe-box:hover .recipe-image-overlay {
+  opacity: 1;
+}
+
+.recipe-image-overlay > h2 {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Form */
+
+.form-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 50vw;
+}
+
+.form-div input {
+  margin: 10px;
+  padding: 5px;
+  border: 2px solid grey;
+  border-radius: 5px;
+}
+
+.button-remove {
+  position: absolute;
+  padding: 3px 4px 1px 4px;
+  margin-top: 10px;
+}
+
+.form-error {
+  color: red;
+  font-weight: 700;
+}
+
+/* Misc */
+
+.grey-border {
+  border: 2px solid grey;
+  border-radius: 5px;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 60vw;
+}
+
+button {
+  padding: 5px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  background-color: grey;
+  color: white;
+}
+
+button > svg {
+  height: 20px;
+  filter: invert();
 }
