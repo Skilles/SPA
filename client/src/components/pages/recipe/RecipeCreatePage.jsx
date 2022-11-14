@@ -21,7 +21,7 @@ function RecipeCreate() {
     }
 
     return (
-        <div className="recipe-create">
+        <div className="recipe-create grey-border">
             <h1>Create Recipe</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-div">

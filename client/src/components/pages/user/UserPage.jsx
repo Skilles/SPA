@@ -10,9 +10,9 @@ function User() {
     }
     return (
         <div className="user-detail">
-            <h1>User Details</h1>
-            <h2>{user.name}</h2>
-            <h2>{user.email}</h2>
+            <h1 class="grey-border">User Details</h1>
+            <h3>Username: {user.name}</h3>
+            <h3>Email: {user.email}</h3>
         </div>
     )
 }

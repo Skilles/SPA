@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function RecipeBadge({ value }) {
-  return <div className="recipe-badge">{value}</div>;
+function RecipeBadge({ value, qualifier }) {
+  return <div className="recipe-badge">{value} {qualifier}</div>;
 }
 
 function RecipeBox({ name, description, time, image, calories, servings, id }) {
@@ -17,8 +17,8 @@ function RecipeBox({ name, description, time, image, calories, servings, id }) {
       </Link>
       <h3>{name}</h3>
       <p>{description}</p>
-      <RecipeBadge value={time} />
-      <RecipeBadge value={calories} />
+      <RecipeBadge value={time} qualifier="minutes" />
+      <RecipeBadge value={calories} qualifier="calories"/>
       <Link to={`/recipe/${id}`}>
         <button type="button">
           <h4>LEARN MORE</h4>

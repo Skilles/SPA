@@ -7,9 +7,9 @@ function About() {
         <div className="about-element">
           <h2>Who</h2>
           <ul>
-            <li>John Doe</li>
-            <li>John Doe</li>
-            <li>John Doe</li>
+            <li>Cameron Holbrook</li>
+            <li>Iain Hemenway</li>
+            <li>Bilal Madi</li>
           </ul>
         </div>
         <div className="about-element">

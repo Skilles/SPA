@@ -93,3 +93,40 @@
 .recipe-box svg {
   transform: translateY(35%);
 }
+
+.desc-lists {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.desc-lists li {
+  text-align: left;
+}
+
+.form-div {
+  position: relative;
+  width: 290px;
+  height: 50px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: flex-start;
+}
+
+.form-div label {
+  text-align: left;
+}
+
+.about-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.about-element li {
+  text-align: left;
+}
