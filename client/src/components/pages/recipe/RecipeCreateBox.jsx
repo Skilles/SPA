@@ -5,11 +5,9 @@ import { ReactComponent as PlusIcon } from "../../../images/plus-icon.svg";
 
 function RecipeCreateBox() {
   return (
-    <div className="grey-border recipe-box">
-        <Link to="/recipe/create">
-            <PlusIcon />
-        </Link>
-    </div>
+    <Link to="/recipe/create" className="grey-border recipe-box">
+        <PlusIcon />
+    </Link>
   );
 }
 

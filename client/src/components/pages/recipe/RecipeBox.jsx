@@ -2,28 +2,30 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function RecipeBadge({ value, qualifier }) {
-  return <div className="recipe-badge">{value} {qualifier}</div>;
+function RecipeBadge({ label, value }) {
+  return (
+    <span className="recipe-badge">
+      <h4>{label}</h4>
+      <p>{value}</p>
+    </span>
+  );
 }
 
 function RecipeBox({ name, description, time, image, calories, servings, id }) {
   return (
     <div className="grey-border recipe-box">
-      <img src={image} alt={name} />
-      <Link to={`/recipe/${id}`}>
-        <span className="recipe-detail-overlay" hidden>
-          <h2>SEE DETAILS</h2>
-        </span>
-      </Link>
-      <h3>{name}</h3>
+      <div className="recipe-image">
+        <img src={image} alt={name} />
+        <Link to={`/recipe/${id}`}>
+          <div className="recipe-image-overlay">
+            <h2>SEE DETAILS</h2>
+          </div>
+        </Link>
+      </div>
+      <h2>{name}</h2>
       <p>{description}</p>
-      <RecipeBadge value={time} qualifier="minutes" />
-      <RecipeBadge value={calories} qualifier="calories"/>
-      <Link to={`/recipe/${id}`}>
-        <button type="button">
-          <h4>LEARN MORE</h4>
-        </button>
-      </Link>
+      <RecipeBadge label="Time Needed" value={time} />
+      <RecipeBadge label="Calories" value={calories} />
     </div>
   );
 }

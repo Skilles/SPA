@@ -1,61 +1,141 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+import { Recipe, RecipeApi } from "../../../api/recipe";
 import { useAuthContext } from "../../../auth/AuthProvider";
+import ArrayInputField from "./ArrayInputField";
+
+const fields = [
+    {
+        name: "name",
+        label: "Name",
+        type: "text",
+        placeholder: "Enter a name",
+    },
+    {
+        name: "description",
+        label: "Description",
+        type: "text",
+        placeholder: "Enter a description",
+    },
+    {
+        name: "ingredients",
+        label: "Ingredients",
+        type: "text",
+        placeholder: "Enter an ingredient",
+        isArray: true,
+    },
+    {
+        name: "instructions",
+        label: "Instructions",
+        type: "text",
+        placeholder: "Enter an instruction",
+        isArray: true,
+    },
+    {
+        name: "image",
+        label: "Image Link",
+        type: "text",
+        placeholder: "Enter an image link",
+    },
+    {
+        name: "time",
+        label: "Time",
+        type: "number",
+        placeholder: "Enter a time",
+    },
+    {
+        name: "calories",
+        label: "Calories",
+        type: "number",
+        placeholder: "Enter a calorie amount",
+    },
+    {
+        name: "servings",
+        label: "Servings",
+        type: "number",
+        placeholder: "Enter a serving amount",
+    },
+];
 
 
 function RecipeCreate() {
     const { authenticated } = useAuthContext();
 
-    const [error, setError] = useState({});
+    const navigate = useNavigate();
+
+    const [error, setError] = useState("");
 
     if (!authenticated) {
         return <h1>Not Authenticated</h1>
     }
 
-    function handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault();
 
         const formData = new FormData(event.target);
-        const recipe = Object.fromEntries(formData.entries());
-        console.log(recipe);
+
+        // assemble the data into a Recipe object
+        let recipe = new Recipe();
+        let instructions = [];
+        let ingredients = [];
+        for (const [key, value] of formData.entries()) {
+            const newValue = value.trim();
+            if (newValue.length === 0) {
+                continue;
+            }
+            if (key.includes("instructions")) {
+                instructions.push(newValue);
+            } else if (key.includes("ingredients")) {
+                ingredients.push(newValue);
+            } else {
+                recipe[key] = newValue;
+            }
+        }
+        recipe.instructions = instructions;
+        recipe.ingredients = ingredients;
+        const errors = recipe.validate();
+
+        if (errors.length > 0) {
+            setError(errors[0]);
+            console.log(errors);
+            return;
+        }
+        
+        RecipeApi.createRecipe(recipe).then((recipe) => {
+            navigate("/recipe/" + recipe.id);
+        });
     }
 
     return (
-        <div className="recipe-create grey-border">
+        <div className="grey-border recipe-create">
             <h1>Create Recipe</h1>
             <form onSubmit={handleSubmit}>
-                <div className="form-div">
-                    <label htmlFor="title">Title</label>
-                    <input type="text" id="title" name="title" />
-                </div>
-                <div className="form-div">
-                    <label htmlFor="description">Description</label>
-                    <input type="text" id="description" name="description" />
-                </div>
-                <div className="form-div">
-                    <label htmlFor="ingredients">Ingredients</label>
-                    <input type="text" id="ingredients" name="ingredients" />
-                </div>
-                <div className="form-div">
-                    <label htmlFor="instructions">Instructions</label>
-                    <input type="text" id="instructions" name="instructions" />
-                </div>
-                <div className="form-div">
-                    <label htmlFor="image">Image Link</label>
-                    <input type="text" id="image" name="image" />
-                </div>
-                <div className="form-div">
-                    <label htmlFor="time">Time</label>
-                    <input type="number" id="time" name="time" />
-                </div>
-                <div className="form-div">
-                    <label htmlFor="calories">Calories</label>
-                    <input type="number" id="calories" name="calories" />
-                </div>
-                <div className="form-div">
-                    <label htmlFor="servings">Servings</label>
-                    <input type="number" id="servings" name="servings" />
-                </div>
+                {error && (<p className='form-error'>{error}</p>)}
+                {fields.map(field => {
+                    if (field.isArray) {
+                        return (
+                            <ArrayInputField
+                                key={field.name}
+                                name={field.name}
+                                label={field.label}
+                                type={field.type}
+                                placeholder={field.placeholder}
+                            />
+                        )
+                    } else {
+                        return (
+                            <div className="form-div" key={field.name}>
+                                <label htmlFor={field.name}>{field.label}</label>
+                                <input
+                                    type={field.type}
+                                    name={field.name}
+                                    placeholder={field.placeholder}
+                                />
+                            </div>
+                        )
+                    }})}
+                
                 <button type="submit">Create Recipe</button>
             </form>
         </div>

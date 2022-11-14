@@ -36,6 +36,35 @@ class Recipe {
       json.id = json._id;
       return Object.assign(new Recipe(), json);
     }
+
+    validate() {
+        const errors = [];
+        if (!this.name) {
+            errors.push("Name is required");
+        }
+        if (!this.description) {
+            errors.push("Description is required");
+        }
+        if (!this.ingredients || this.ingredients.length === 0) {
+            errors.push("Ingredients are required");
+        }
+        if (!this.instructions || this.instructions.length === 0) {
+            errors.push("Instructions are required");
+        }
+        if (!this.time) {
+            errors.push("Time is required");
+        }
+        if (!this.image) {
+            errors.push("Image is required");
+        }
+        if (!this.calories) {
+            errors.push("Calories are required");
+        }
+        if (!this.servings) {
+            errors.push("Servings are required");
+        }
+        return errors;
+    }
 }
 
 class RecipeApi {
