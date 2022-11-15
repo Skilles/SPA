@@ -1,6 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+import { useAuthContext } from '../../../auth/AuthProvider';
+import { RecipeApi } from '../../../api/recipe';
 
 function RecipeBadge({ label, value }) {
   return (
@@ -12,6 +15,22 @@ function RecipeBadge({ label, value }) {
 }
 
 function RecipeBox({ name, description, time, image, calories, servings, id }) {
+  const { authenticated } = useAuthContext();
+  const navigate = useNavigate();
+
+  const handleDelete = () => {
+    
+    if(!window.confirm('Are you sure you want to delete this recipe?')) return;
+    RecipeApi.deleteRecipe(id).then((result) => {
+      if (result) {
+        // refresh the page
+        navigate(0);
+      } else {
+        alert('Failed to delete recipe');
+      }
+    });
+  }
+  
   return (
     <div className="grey-border recipe-box">
       <div className="recipe-image">
@@ -22,6 +41,7 @@ function RecipeBox({ name, description, time, image, calories, servings, id }) {
           </div>
         </Link>
       </div>
+      {authenticated && <button type="button" className="recipe-delete" onClick={handleDelete}></button>}
       <h2>{name}</h2>
       <p>{description}</p>
       <RecipeBadge label="Time Needed" value={time} />
