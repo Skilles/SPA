@@ -34,7 +34,7 @@ function RecipeDetail() {
       <p>{recipe.description}</p>
       <p>{recipe.time} minutes</p>
       <p>{recipe.calories} calories</p>
-      <p>{recipe.servings} servings</p>
+      <p>{recipe.servings} serving(s)</p>
       <div className="desc-lists">
         <div>
           <h3>Ingredients</h3>
