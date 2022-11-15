@@ -29,7 +29,7 @@ recipeRoutes.route('/api/recipe').post((req, res) => {
 });
 
 // This section will help you update a recipe by id.
-recipeRoutes.route('/api/recipe/:id').post((req, res) => {
+recipeRoutes.route('/api/recipe/:id').put((req, res) => {
   Recipe.findByIdAndUpdate(req.params.id, req.body, (err, recipe) => {
     if (err) res.status(400).json({ success: false, error: err.message });
     else res.json({ success: true, recipe });

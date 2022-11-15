@@ -35,7 +35,7 @@ userRoutes.route('/api/user').post((req, res) => {
 });
 
 // This section will help you update a user by id.
-userRoutes.route('/api/user/:id').post((req, res) => {
+userRoutes.route('/api/user/:id').put((req, res) => {
   User.findByIdAndUpdate(req.params.id, req.body, (err, user) => {
     if (err) res.status(400).json({ success: false, error: err.message });
     else res.json({ success: true, user });

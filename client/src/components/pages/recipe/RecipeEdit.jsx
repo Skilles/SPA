@@ -6,13 +6,24 @@ import { useAuthContext } from "../../../auth/AuthProvider";
 import CreateRecipeForm from "./CreateRecipeForm";
 
 
-function RecipeCreate() {
+function RecipeEdit({ recipe: { name, description, ingredients, instructions, time, image, calories, servings, id } }) {
     const { authenticated } = useAuthContext();
 
     const navigate = useNavigate();
 
     if (!authenticated) {
         return <h1>Not Authenticated</h1>
+    }
+
+    const initialValues = {
+        name: name,
+        description: description,
+        ingredients: ingredients,
+        instructions: instructions,
+        time: time,
+        image: image,
+        calories: calories,
+        servings: servings
     }
 
     const handleSubmit = (event) => {
@@ -39,23 +50,24 @@ function RecipeCreate() {
         }
         recipe.instructions = instructions;
         recipe.ingredients = ingredients;
+        recipe.id = id;
         const errors = recipe.validate();
 
         if (errors.length > 0) {
             return errors;
         }
-        
-        RecipeApi.createRecipe(recipe).then((recipe) => {
-            navigate("/recipe/" + recipe.id);
+
+        RecipeApi.updateRecipe(recipe).then((recipe) => {
+            navigate(0);
         });
     }
 
     return (
-        <div className="grey-border recipe-create">
-            <h1>Create Recipe</h1>
-            <CreateRecipeForm onSubmit={handleSubmit}/ >
+        <div className="grey-border recipe-edit">
+            <h1>Edit {name}</h1>
+            <CreateRecipeForm onSubmit={handleSubmit} initialValues={initialValues} / >
         </div>
     );
 }
 
-export default RecipeCreate;
+export default RecipeEdit;

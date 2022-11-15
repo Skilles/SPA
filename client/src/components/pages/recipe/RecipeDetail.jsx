@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { RecipeApi } from '../../../api/recipe.js';
+import { useAuthContext } from '../../../auth/AuthProvider.js';
+import RecipeEdit from './RecipeEdit.jsx';
 
 function RecipeDetail() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(undefined);
   const [recipeLoaded, setRecipeLoaded] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const { authenticated } = useAuthContext();
 
   useEffect(() => {
     RecipeApi.getRecipe(id).then((rcp) => {
@@ -14,6 +18,14 @@ function RecipeDetail() {
       setRecipeLoaded(true);
     });
   }, [id]);
+
+  const handleEdit = () => {
+    setEditMode(true);
+  };
+
+  if (editMode) {
+    return <RecipeEdit recipe={recipe} />;
+  }
 
   return recipeLoaded ? (
     <div className="grey-border recipe-detail">
@@ -41,6 +53,7 @@ function RecipeDetail() {
           </ul>
         </div>
       </div>
+      {authenticated && (<button type='button' onClick={handleEdit}>Edit</button>)}
     </div>
   ) : (
     <h1>Loading...</h1>

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { ReactComponent as MinusIcon } from "../../../images/x-icon.svg";
 
-function ArrayInputField({ name, label, type, placeholder }) {
+function ArrayInputField({ name, label, type, placeholder, initialValues }) {
     const [indexes, setIndexes] = useState([]);
     const [counter, setCounter] = useState(0);
 
@@ -16,10 +16,16 @@ function ArrayInputField({ name, label, type, placeholder }) {
         setCounter(prevCounter => prevCounter - 1);
     };
 
-    // always have one field
-    if (counter === 0) {
+    
+    if (initialValues) {
+        if (initialValues.length > indexes.length) {
+            setIndexes(initialValues.map((_, index) => index));
+            setCounter(initialValues.length);
+        }
+    } else if (counter === 0) {
         addField();
     }
+    
     
     return (
         <div className="form-div">
@@ -30,6 +36,7 @@ function ArrayInputField({ name, label, type, placeholder }) {
                         type={type}
                         name={`${name}[${index}]`}
                         placeholder={placeholder}
+                        defaultValue={initialValues ? initialValues[index] : undefined}
                     />
                     {index !== 0 && (<button type="button" onClick={removeField(index)} className="button-remove">
                         <MinusIcon />

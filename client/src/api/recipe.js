@@ -121,8 +121,8 @@ class RecipeApi {
    * @param {Recipe} recipe
    * @returns {Promise<Recipe>} updated recipe
    */
-  static async updateRecipe(id, recipe) {
-    const res = await fetch(`/api/recipe/${id}`, {
+  static async updateRecipe(recipe) {
+    const res = await fetch(`/api/recipe/${recipe.id}`, {
       method: 'PUT',
       body: JSON.stringify(recipe),
       headers: {
@@ -132,7 +132,8 @@ class RecipeApi {
     if (res.status === 200) {
       return res.json().then((json) => Recipe.from(json.recipe));
     } else {
-      throw new Error(`Failed to update recipe`);
+      console.log(await res.json())
+      throw new Error("Failed to update recipe");
     }
   }
 
