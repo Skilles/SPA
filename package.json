@@ -2,6 +2,7 @@
   "name": "app",
   "version": "0.3.0",
   "private": true,
+  "proxy": "https://recipe-spa-server.herokuapp.com",
   "dependencies": {
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
