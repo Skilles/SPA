@@ -61,7 +61,7 @@ function CreateRecipeForm({ onSubmit, initialValues }) {
     const handleSubmit = async (event) => {
         const err = await onSubmit(event);
         if (err) {
-            setError(err);
+            setError(err[0]);
         }
     }
 
