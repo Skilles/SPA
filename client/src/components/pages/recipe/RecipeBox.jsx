@@ -44,7 +44,7 @@ function RecipeBox({ name, description, time, image, calories, servings, id }) {
       {authenticated && <button type="button" className="recipe-delete" onClick={handleDelete}></button>}
       <h2>{name}</h2>
       <p>{description}</p>
-      <RecipeBadge label="Time Needed" value={time} />
+      <RecipeBadge label="Time Needed (minutes)" value={time} />
       <RecipeBadge label="Calories" value={calories} />
     </div>
   );

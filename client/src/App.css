@@ -197,16 +197,9 @@
 /* Form */
 
 .form-div {
-  position: relative;
-  width: 290px;
-  height: 50px;
-  margin: 0 auto;
-  padding: 10px;
-  box-sizing: border-box;
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
 }
 
 .form-div label {
@@ -235,6 +228,7 @@
 .about-panel {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10%;
 }
 
 .about-element li {
@@ -264,3 +258,4 @@ button > svg {
   height: 20px;
   filter: invert();
 }
+
