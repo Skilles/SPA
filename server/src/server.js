@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 import express, { json } from 'express';
 
 import recipeRoutes from './routes/recipe.js';
-import authRoutes from './routes/auth.js';
+import authRoutes from './routes/user.js';
 import connect from './mongo.js';
 
 let config = dotenv.config();

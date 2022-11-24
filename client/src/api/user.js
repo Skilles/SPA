@@ -5,10 +5,9 @@ class User {
    * @param {string} password
    * @param {string} id
    */
-  constructor(name, email, password, id) {
+  constructor(name, email, id) {
     this.name = name;
     this.email = email;
-    this.password = password;
     this.id = id;
   }
 
@@ -17,7 +16,7 @@ class User {
     return Object.assign(new User(), json);
   }
 
-  validate() {
+  validate(password) {
     const errors = [];
     if (!this.name) {
       errors.push("Name is required");
@@ -25,7 +24,7 @@ class User {
     if (!this.email) {
       errors.push("Email is required");
     }
-    if (!this.password) {
+    if (!password) {
       errors.push("Password is required");
     }
     return errors;
