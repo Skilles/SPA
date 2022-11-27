@@ -16,6 +16,9 @@ const app = express();
 app.use(json());
 app.use(recipeRoutes);
 app.use(authRoutes);
+app.get('*', function (req, res) {
+  res.status(404).send("404 not found")
+});
 
 app.listen(5000, () => {
   // perform a database connection when server starts
