@@ -14,11 +14,17 @@ function About() {
         </div>
         <div className="about-element">
           <h2>What</h2>
-          <p>Welcome to our Recipe Book Site! Sign in to add, edit, and delete recipes</p>
+          <p>
+            Welcome to our Recipe Book Site! Sign in to add, edit, and delete
+            recipes
+          </p>
         </div>
         <div className="about-element">
           <h2>Why</h2>
-          <p>We chose to make a Recipe Book site to best showcase the card functionality</p>
+          <p>
+            We chose to make a Recipe Book site to best showcase the card
+            functionality
+          </p>
         </div>
       </div>
     </>

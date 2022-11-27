@@ -53,7 +53,11 @@ function RecipeDetail() {
           </ul>
         </div>
       </div>
-      {authenticated && (<button type='button' onClick={handleEdit}>Edit</button>)}
+      {authenticated && (
+        <button type="button" onClick={handleEdit}>
+          Edit
+        </button>
+      )}
     </div>
   ) : (
     <h1>Loading...</h1>

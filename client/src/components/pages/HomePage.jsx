@@ -13,11 +13,11 @@ function Home() {
 
   useEffect(() => {
     if (!recipesLoaded) {
-    RecipeApi.getRecipes().then((rcps) => {
-      setRecipes(rcps);
-      setRecipesLoaded(true);
-    });
-  }
+      RecipeApi.getRecipes().then((rcps) => {
+        setRecipes(rcps);
+        setRecipesLoaded(true);
+      });
+    }
   });
 
   return (

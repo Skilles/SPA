@@ -17,7 +17,7 @@ function AuthBar() {
       <>
         <NavLink to="/user">
           <button type="button" className="user-name">
-            {user?.name}
+            {user.name}
           </button>
         </NavLink>
         {

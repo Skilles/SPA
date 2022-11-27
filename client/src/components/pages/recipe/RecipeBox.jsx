@@ -19,8 +19,7 @@ function RecipeBox({ name, description, time, image, calories, servings, id }) {
   const navigate = useNavigate();
 
   const handleDelete = () => {
-    
-    if(!window.confirm('Are you sure you want to delete this recipe?')) return;
+    if (!window.confirm('Are you sure you want to delete this recipe?')) return;
     RecipeApi.deleteRecipe(id).then((result) => {
       if (result) {
         // refresh the page
@@ -29,8 +28,8 @@ function RecipeBox({ name, description, time, image, calories, servings, id }) {
         alert('Failed to delete recipe');
       }
     });
-  }
-  
+  };
+
   return (
     <div className="grey-border recipe-box">
       <div className="recipe-image">
@@ -41,7 +40,13 @@ function RecipeBox({ name, description, time, image, calories, servings, id }) {
           </div>
         </Link>
       </div>
-      {authenticated && <button type="button" className="recipe-delete" onClick={handleDelete}></button>}
+      {authenticated && (
+        <button
+          type="button"
+          className="recipe-delete"
+          onClick={handleDelete}
+        ></button>
+      )}
       <h2>{name}</h2>
       <p>{description}</p>
       <RecipeBadge label="Time Needed (minutes)" value={time} />
