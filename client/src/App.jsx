@@ -13,7 +13,6 @@ import User from './components/pages/user/UserPage';
 import Header from './components/Header';
 import HeaderImage from './images/header.png';
 
-
 function App() {
   return (
     <>
@@ -26,7 +25,6 @@ function App() {
 
           <Route path="/recipe/:id" element={<RecipeDetail />} />
           <Route path="/recipe/create" element={<RecipeCreate />} />
-
 
           <Route path="/user" element={<User />} />
           <Route path="/signup" element={<Signup />} />

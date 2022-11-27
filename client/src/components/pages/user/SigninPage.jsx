@@ -4,7 +4,6 @@ import AuthForm from './AuthForm';
 import { handleSignin } from '../../../auth/AuthHandler';
 
 function Signin() {
-
   return (
     <AuthForm
       title="Login"

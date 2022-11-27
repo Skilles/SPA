@@ -4,15 +4,13 @@ import { Link } from 'react-router-dom';
 
 function Header({ title, image }) {
   return (
-    
-      <div className="header">
+    <div className="header">
       <Link to="/">
-          <h1>{title}</h1>
-        
-          <img src={image} alt={`${title} Header`} />
-        </Link>
-      </div>
-    
+        <h1>{title}</h1>
+
+        <img src={image} alt={`${title} Header`} />
+      </Link>
+    </div>
   );
 }
 
