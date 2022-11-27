@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { compare, hash } from 'bcrypt';
-import { sign } from 'jsonwebtoken';
+import pkg from 'jsonwebtoken';
+const { sign } = pkg;
 
 import User from '../models/user.js';
 import verifyJWT from '../jwt.js';
@@ -35,9 +36,10 @@ userRoutes.route('/api/user').post(async (req, res) => {
   User.create(payload, (err, user) => {
     if (!err) return res.json({ success: true, user });
     
+    // email is uniquely indexed
     return err.code === 11000 ? 
-      res.json({ success: false, error: 'Email already exists' }) : 
-      res.status(400).json({ success: false, error: err.message });
+      res.status(400).json({ success: false, error: 'Email already exists' }) : 
+      res.status(500).json({ success: false, error: err.message });
   });
 });
 
@@ -68,14 +70,15 @@ userRoutes.route('/api/users/login').post((req, res) => {
   User.findOne({ email: req.body.email }, async (err,  user) => {
     if (err) return res.status(400).json({ success: false, error: err.message });
 
-    if (!user) return res.json({ success: false, error: 'Incorrect email or password' });
+    if (!user) return res.status(400).json({ success: false, error: 'Incorrect email or password' });
 
     const passCorrect = await compare(enteredPass, user.password);
-    if (!passCorrect) return res.json({ success: false,  error: 'Incorrect email or password'})
+    if (!passCorrect) return res.status(400).json({ success: false,  error: 'Incorrect email or password'})
     
     const payload = {
-      id: user._id,
-      email: user.email
+      id: user.id,
+      email: user.email,
+      name: user.name
     }
     sign(payload, process.env.JWT_SECRET, { expiresIn: 86400 }, (err, token) => {
       if (err) return res.status(400).json({ success: false, error: err.message });

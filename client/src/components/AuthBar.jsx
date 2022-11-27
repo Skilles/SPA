@@ -1,40 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { useAuthContext } from '../auth/AuthProvider';
-  
+
 function AuthBar() {
-    const { authenticated, setAuthenticated, user } = useAuthContext();
+  const { authenticated, setAuthenticated, user, setUser } = useAuthContext();
 
-    const [showLogout, setShowLogout] = useState(false);
+  const handleLogout = () => {
+    setAuthenticated(false);
+    setUser(undefined);
+    localStorage.removeItem('token');
+  };
 
-    const handleLogout = () => {
-        setAuthenticated(false);
-        sessionStorage.removeItem('currentUser');
-    }
-
-    if (authenticated) {
-        return (
-            <span onMouseEnter={() => setShowLogout(true)} onMouseLeave={() => setShowLogout(false)}>
-                <NavLink to='/user' >
-                    <button type="button" className='user-name'>{user.name}</button>
-                </NavLink>
-                {showLogout && (<span className="logout">
-                    <button type="button" onClick={handleLogout}>Logout</button>
-                </span>)}
-            </span>
-        )
-    }
+  if (authenticated) {
     return (
-        <>
-        <NavLink to={'/signup'}>
-            <button type="button">Signup</button>
+      <>
+        <NavLink to="/user">
+          <button type="button" className="user-name">
+            {user?.name}
+          </button>
         </NavLink>
-        <NavLink to={'/signin'}>
-            <button type="button">Login</button>
-        </NavLink>
-        </>
+        {
+          <div className="logout">
+            <button type="button" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+        }
+      </>
     );
+  }
+  return (
+    <>
+      <NavLink to={'/signup'}>
+        <button type="button">Signup</button>
+      </NavLink>
+      <NavLink to={'/signin'}>
+        <button type="button">Login</button>
+      </NavLink>
+    </>
+  );
 }
 
 export default AuthBar;

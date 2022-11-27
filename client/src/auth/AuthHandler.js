@@ -1,29 +1,33 @@
-import { UserApi } from "../api/user";
-
+import { UserApi } from '../api/user';
 
 async function handleSignin(data) {
-    const email = data.get('email');
-    const password = data.get('password');
+  const email = data.get('email');
+  const password = data.get('password');
 
-    const user = await UserApi.verifyUser(email, password);
+  const jwt = await UserApi.loginUser(email, password);
 
-    return user;
+  localStorage.setItem('token', jwt);
+
+  const user = await UserApi.verifyUser(jwt);
+
+  return user;
 }
 
 async function handleSignup(data) {
-    const name = data.get('name');
-    const email = data.get('email');
-    const password = data.get('password');
+  const name = data.get('name');
+  const email = data.get('email');
+  const password = data.get('password');
 
-    try {
-        await UserApi.verifyUser(email, password);
-    } catch (err) {
-        const user = await UserApi.createUser({ name, email, password });
+  const user = await UserApi.createUser({ name, email, password });
 
-        return user;
-    }
-    // If the user already exists, throw an error
-    throw new Error('User already exists');
+  try {
+    const jwt = await UserApi.loginUser(email, password);
+    localStorage.setItem('token', jwt);
+  } catch (err) {
+    throw new Error(`Unknown error: ${err}`);
+  }
+
+  return user;
 }
 
 export { handleSignin, handleSignup };

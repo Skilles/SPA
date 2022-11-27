@@ -8,9 +8,7 @@ import connect from './mongo.js';
 let config = dotenv.config();
 
 if (config.error) {
-  throw config.error;
-} else {
-  config = config.parsed;
+  throw new Error("Cannot find a .env file in the root directory");
 }
 
 const app = express();
@@ -21,7 +19,7 @@ app.use(authRoutes);
 
 app.listen(5000, () => {
   // perform a database connection when server starts
-  connect(config.ATLAS_URI, (err) => {
+  connect(process.env.ATLAS_URI, (err) => {
     if (err) console.error(err);
   }).then(() => {
     console.log('Server started on port 5000');
